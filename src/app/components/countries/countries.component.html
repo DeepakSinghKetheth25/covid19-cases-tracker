@@ -1,0 +1,63 @@
+<div class="jumbotron bg-white">
+    <h1>Covid-19 Case Tracker</h1>
+    <hr>
+    <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+    Vero aliquam laudantium explicabo debitis eius quasi vel repellendus aut,
+    earum similique temporibus pariatur, cumque facere et fugit tenetur provident necessitatibus tempore!
+    </p> -->
+<div class="row countries">
+        <div class="form-group col-lg-5 ">
+            <label  for="c" >Select Country</label><br>
+            <select id="c" class="form-control-lg" #input (change)='selectCountry(input.value)' >
+                <option  selected value="India" >India</option>
+                <option  *ngFor='let country of countries' value="{{country}}" >{{country}}</option>
+            </select>
+        </div>
+</div>
+
+    <app-shared
+    [totalActive]='totalActive'
+    [totalConfirmed]='totalConfirmed' 
+    [totalDeaths]='totalDeaths'
+    [totalRecovered]='totalRecovered'
+    ></app-shared>
+
+
+        <div class="ui dimmer" [class.active]='loading'>
+          <div class="ui text loader">Loading</div>
+        </div>
+        <p></p>
+    
+
+
+    <div class="toggle">
+        <h2 class="bar" ><i class="far fa fa-chart-bar"></i></h2>
+        <label class="switch">
+            <input type="checkbox" checked name="switch"  (change)="switchChange($event)">
+            <span class="slider round"></span>
+        </label>
+        <h2 class="pie"><i class="fas fa fa-chart-line"></i></h2>
+    </div>
+
+    <google-chart *ngIf="!loading && lineChartSwitchChecked" [data]="lineChart" ></google-chart>  
+    <google-chart *ngIf="!loading && !lineChartSwitchChecked" [data]="columnChart" ></google-chart>  
+
+
+        <table class="ui celled table center">
+            <thead>
+              <tr><th>S.no</th>
+              <th>Date</th>
+              <th>Cases</th>
+            </tr></thead>
+            <tbody>
+              <tr *ngFor="let data of countryDatewiseCases; index as i">
+                <td data-label="Sno">{{i+1}}</td>
+                <td data-label="Date">{{data.date | date}}</td>
+                <td data-label="Cases">{{data.cases}}</td>
+              </tr>
+            </tbody>
+          </table>
+    
+    
+
+</div>

@@ -1,0 +1,67 @@
+<div class="jumbotron bg-white">
+    <h1>Covid-19 Case Tracker</h1>
+    <hr>
+    <app-shared 
+        [totalActive]='totalActive' 
+        [totalConfirmed]='totalConfirmed' 
+        [totalDeaths]='totalDeaths'
+        [totalRecovered]='totalRecovered'
+       ></app-shared>
+
+       <div class="ui dimmer" [class.active]='loading'>
+        <div class="ui text loader">Loading</div>
+      </div>
+
+  <hr>  
+    <div class="ui form">
+        <div class="inline fields">
+            <label for="fruit">Select Case Type:</label>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="caseType" id="confirmed" value="confirmed" 
+                     #confirmed (click)='updateChart(confirmed)'
+                     checked="" tabindex="0" class="hidden">
+                    <label for="confirmed">Confirmed</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                     <input type="radio" id="deaths" name="caseType" value="deaths"
+                     #deaths (click)='updateChart(deaths)'
+                     tabindex="0" class="hidden">
+                    <label for="deaths">Deaths</label>
+                </div>
+            </div>
+            <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="recovered" name="caseType" value="recovered"
+                        #recovered (click)='updateChart(recovered)'
+                        tabindex="0" class="hidden">
+                        <label for="recovered">Recovered</label>
+                    </div>
+            </div>
+            <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" id="active" name="caseType" value="active"
+                        #active (click)='updateChart(active)'
+                        tabindex="0" class="hidden">
+                        <label for="active">Active</label>
+                    </div>
+            </div>
+        </div>
+   
+    </div>
+
+    <div class="toggle">
+        <h2 class="bar" ><i class="far fa fa-chart-bar"></i></h2>
+        <label class="switch">
+            <input type="checkbox" checked name="switch"  (change)="switchChange($event)">
+            <span class="slider round"></span>
+        </label>
+        <h2 class="pie"><i class="fas fa fa-chart-pie"></i></h2>
+    </div>
+
+    <google-chart *ngIf="!loading && pieChartSwitchChecked" [data]="pieChart" ></google-chart>  
+    <google-chart *ngIf="!loading && !pieChartSwitchChecked" [data]="columnChart" ></google-chart>  
+     
+</div>
