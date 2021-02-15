@@ -89,3 +89,11 @@
   .form label{
       font-size: 16px;
   }
+
+
+  .lastUpdatedDate{
+    text-align: left;
+    margin: 0px;
+    margin-left: 20px;
+    margin-bottom: -35px;
+  }

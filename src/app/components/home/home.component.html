@@ -1,6 +1,7 @@
 <div class="jumbotron bg-white">
     <h1>Covid-19 Case Tracker</h1>
     <hr>
+    <h5 class="lastUpdatedDate"><b>Last Update : {{lastDateOfUpdate | date}}</b></h5>
     <app-shared 
         [totalActive]='totalActive' 
         [totalConfirmed]='totalConfirmed' 

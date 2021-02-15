@@ -6,6 +6,7 @@ import { GlobalDataSummary } from 'src/app/models/global-data.model';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { Router } from '@angular/router';
 import { concatMapTo } from 'rxjs/operators';
+import { DatewiseData } from 'src/app/models/country-data.model';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,11 @@ export class HomeComponent implements OnInit {
   totalDeaths=0;
   totalRecovered=0;
   loading  = true;
+  lastDateOfUpdate:Date;
 
   pieChartSwitchChecked = true;
   
+  countryDatewiseCases:DatewiseData[];
   globalData:GlobalDataSummary[];
 
   pieChart:GoogleChartInterface={
@@ -111,11 +114,20 @@ export class HomeComponent implements OnInit {
         
         })
         
-        // console.log(this.globalData);
+        this.getLastUpdatedDate();
       }
     });
+  }
 
 
+  getLastUpdatedDate(){
+    this.dataService.getDatewiseData('India')
+    .subscribe(
+      responseData=>{
+        this.countryDatewiseCases=responseData;
+        this.lastDateOfUpdate = this.countryDatewiseCases[0].date;
+      }
+    );
   }
 
   switchChange(event){
